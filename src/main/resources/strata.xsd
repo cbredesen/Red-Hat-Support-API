@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:annotation>
+		<xs:documentation>Red Hat Support Services API</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="cases">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of support cases. This type serves as both a
+					top-level construct in the case that a query returns a list of
+					support cases as well as an embedded construct as part of a larger
+					item.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element ref="case" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="length" type="xs:int" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="case">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A support case as viewed by an internal customer.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="uri" type="xs:anyURI" minOccurs="0" />
+				<xs:element name="summary" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Summary or title for this support case.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="description" type="xs:string" minOccurs="0" />
+				<xs:element name="status" type="xs:string" minOccurs="0" />
+				<xs:element name="product" type="xs:string" minOccurs="0" />
+				<xs:element name="component" type="xs:string" minOccurs="0" />
+				<xs:element name="version" type="xs:string" minOccurs="0" />
+				<xs:element name="type" type="xs:string" minOccurs="0" />
+				<xs:element name="accountNumber" type="xs:string" minOccurs="0" />
+				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
+				<xs:element name="createdDate" type="xs:dateTime" minOccurs="0" />
+				<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" />
+				<xs:element name="lastModifiedDate" type="xs:dateTime" minOccurs="0" />
+				<xs:element name="reference" type="xs:string" minOccurs="0" />
+				<xs:element name="notes" type="xs:string" minOccurs="0" />
+				<xs:element name="isEscalated" type="xs:boolean" minOccurs="0" />
+				<xs:element name="contactName" type="xs:string" minOccurs="0" />
+				<xs:element name="origin" type="xs:string" minOccurs="0" />
+				<xs:element name="owner" type="xs:string" minOccurs="0" />
+				<xs:element name="internalPriority" type="xs:string" minOccurs="0" />
+				<xs:element name="internalStatus" type="xs:string" minOccurs="0" />
+				<xs:element name="suppliedName" type="xs:string" minOccurs="0" />
+				<xs:element name="suppliedPhone" type="xs:string" minOccurs="0" />
+				<xs:element name="suppliedEmail" type="xs:string" minOccurs="0" />
+				<xs:element name="severity" type="xs:string" minOccurs="0" />
+				<xs:element ref="comments" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="caseNumber" type="xs:string" />
+			<xs:attribute name="isClosed" type="xs:boolean" />
+			<xs:attribute name="customerReferenceNumber" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="comments">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of comments</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element ref="comment" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="length" type="xs:int" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="comment">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A support case comment.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="date" type="xs:dateTime" />
+				<xs:element name="who" type="xs:string" minOccurs="0" />
+				<xs:element name="text" type="xs:string" />
+				<xs:element name="title" type="xs:string" minOccurs="0" />
+				<xs:element name="lastModified" type="xs:date" minOccurs="0" />
+				<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" />
+				<xs:element name="createdDate" type="xs:date" minOccurs="0" />
+				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
+				<xs:element name="uri" type="xs:anyURI" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" />
+			<xs:attribute name="caseNumber" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+</xs:schema>
