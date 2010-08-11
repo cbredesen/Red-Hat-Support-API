@@ -11,8 +11,8 @@
 				<xs:documentation>A list of support cases. This type serves as both a
 					top-level construct in the case that a query returns a list of
 					support cases as well as an embedded construct as part of a larger
-					item.
-				</xs:documentation>
+					item.  This element is not required to contain any child 
+					case elements.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
 				<xs:element ref="case" maxOccurs="unbounded" />
@@ -28,13 +28,21 @@
 				</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
-				<xs:element name="uri" type="xs:anyURI" minOccurs="0" />
-				<xs:element name="summary" type="xs:string" minOccurs="0">
+				<xs:element name="uri" type="xs:anyURI" minOccurs="0">
 					<xs:annotation>
-						<xs:documentation>Summary or title for this support case.</xs:documentation>
+						<xs:documentation>RESTful URI for this case resource.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="description" type="xs:string" minOccurs="0" />
+				<xs:element name="summary" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Title or short summary.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Description of the problem or question.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 				<xs:element name="status" type="xs:string" minOccurs="0" />
 				<xs:element name="product" type="xs:string" minOccurs="0" />
 				<xs:element name="component" type="xs:string" minOccurs="0" />
