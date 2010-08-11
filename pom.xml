@@ -21,9 +21,9 @@
 				<artifactId>maven-jaxb-plugin</artifactId>
 				<executions>
 					<execution>
-						<goals><!--
+						<goals>
 							<goal>generate</goal>
-						--></goals>
+						</goals>
 					</execution>
 				</executions>
 				<configuration>
