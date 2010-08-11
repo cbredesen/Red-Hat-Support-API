@@ -1,0 +1,12 @@
+A note about Eclipse/m2eclpse
+
+From http://m2eclipse.sonatype.org/m2eclipse-faq.html#7
+
+The project will not build straight away if imported into Eclpse via m2e.
+You must either...
+
+* Maven > Update Project Configuration
+* configure m2eclpse to run the "process-resources" goal when importing
+
+If done correctly, a second source folder will be present at 
+target/generated-sources/xjc.

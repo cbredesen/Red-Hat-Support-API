@@ -30,6 +30,29 @@
 					<generatePackage>com.redhat.gss.strata.model</generatePackage>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>xml-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>transform</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<transformationSets>
+						<transformationSet>
+							<dir>src/main/resources</dir>
+							<includes>
+								<include>*.xsd</include>
+							</includes>
+							<stylesheet>src/main/resources/xs3p.xsl</stylesheet>
+						</transformationSet>
+					</transformationSets>
+					<addToClasspath>false</addToClasspath>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
