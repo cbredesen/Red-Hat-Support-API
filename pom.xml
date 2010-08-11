@@ -48,6 +48,25 @@
 								<include>*.xsd</include>
 							</includes>
 							<stylesheet>src/main/resources/xs3p.xsl</stylesheet>
+							<fileMappers>
+								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+									<targetExtension>.html</targetExtension>
+								</fileMapper>
+							</fileMappers>
+							<parameters>
+								<parameter>
+									<name>title</name>
+									<value>Support Services Schema</value>
+								</parameter>
+								<parameter>
+									<name>useJavaScript</name>
+									<value>false</value>
+								</parameter>
+								<parameter>
+									<name>printGlossary</name>
+									<value>false</value>
+								</parameter>
+							</parameters>
 						</transformationSet>
 					</transformationSets>
 					<addToClasspath>false</addToClasspath>
