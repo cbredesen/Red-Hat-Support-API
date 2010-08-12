@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.redhat.com/gss/strata"
+	xmlns:tns="http://www.redhat.com/gss/strata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 	<xs:annotation>
 		<xs:documentation>Red Hat Support Services API</xs:documentation>
@@ -15,7 +16,7 @@
 					case elements.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
-				<xs:element ref="case" maxOccurs="unbounded" />
+				<xs:element ref="tns:case" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
@@ -24,8 +25,7 @@
 	<xs:element name="case">
 		<xs:complexType>
 			<xs:annotation>
-				<xs:documentation>A support case as viewed by an internal customer.
-				</xs:documentation>
+				<xs:documentation>A support case as viewed by an internal customer.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
 				<xs:element name="uri" type="xs:anyURI" minOccurs="0">
@@ -65,7 +65,7 @@
 				<xs:element name="suppliedPhone" type="xs:string" minOccurs="0" />
 				<xs:element name="suppliedEmail" type="xs:string" minOccurs="0" />
 				<xs:element name="severity" type="xs:string" minOccurs="0" />
-				<xs:element ref="comments" minOccurs="0" />
+				<xs:element ref="tns:comments" minOccurs="0" />
 			</xs:sequence>
 			<xs:attribute name="caseNumber" type="xs:string" />
 			<xs:attribute name="isClosed" type="xs:boolean" />
@@ -79,7 +79,7 @@
 				<xs:documentation>A list of comments</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
-				<xs:element ref="comment" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="tns:comment" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
@@ -88,7 +88,7 @@
 	<xs:element name="comment">
 		<xs:complexType>
 			<xs:annotation>
-				<xs:documentation>A support case comment.</xs:documentation>
+				<xs:documentation>A support case comment and associated metadata.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
 				<xs:element name="date" type="xs:dateTime" />
@@ -103,6 +103,27 @@
 			</xs:sequence>
 			<xs:attribute name="id" type="xs:string" />
 			<xs:attribute name="caseNumber" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="values">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of name/value pairs.  Both names and values are String typed.  List can 
+				contain zero or more elements.  Values are nullable.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="value" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+							<xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1" />
+						</xs:sequence>
+						<xs:attribute name="type" type="xs:string" />
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
 	</xs:element>
 
