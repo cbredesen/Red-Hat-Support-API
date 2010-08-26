@@ -1,0 +1,22 @@
+Resources
+
+	This page documents the RESTful resources available in the API.
+	
+* Case Management
+
+	Resources and services related to support cases, comments and attachments.
+	
+** Case Resource
+
+	<<<GET /cases/\{number\}>>>
+	
+	Return the case identified by case number <<<number>>>.
+	
+	<<<POST /cases/>>>
+	
+	Create a new case.
+	
+
+* Values
+
+	Service which provides valid values (aka picklists) for various fields.

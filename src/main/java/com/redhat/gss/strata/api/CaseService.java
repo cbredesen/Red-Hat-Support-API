@@ -35,9 +35,6 @@ import com.redhat.gss.strata.model.Comments;
 @Path("/cases")
 @Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
 public interface CaseService {
-	public static final int BLOCK_SIZE = 8192;
-	public static final String ATTACHMENT_CURRENT_STATUS_HEADER_NAME = "Current-Status";
-	public static final int MAX_CASE_SUMMARY_LENGTH = 255;
 
 	/**
 	 * Create a case, possibly inclusive of nested comments and tags.  Accepts XML and JSON.

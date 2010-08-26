@@ -33,22 +33,53 @@
 						<xs:documentation>RESTful URI for this case resource.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="summary" type="xs:string" minOccurs="0">
+				<xs:element name="summary" type="xs:string" minOccurs="1" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>Title or short summary.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>Description of the problem or question.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="status" type="xs:string" minOccurs="0" />
-				<xs:element name="product" type="xs:string" minOccurs="0" />
-				<xs:element name="component" type="xs:string" minOccurs="0" />
-				<xs:element name="version" type="xs:string" minOccurs="0" />
-				<xs:element name="type" type="xs:string" minOccurs="0" />
-				<xs:element name="accountNumber" type="xs:string" minOccurs="0" />
+				<xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Case status.  Valid values are available from 
+						the values service.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="product" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Product this case relates to.  Valid products 
+						are available from the values service.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="component" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Component this case relates to (optional). Valid
+						components for a given product are available from the values 
+						service.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Version of the product this case relates to.
+						Valid versions for a given product are available from the values
+						service.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Type of case, i.e. question, problem, etc.
+						Valid types are available from the values service.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="accountNumber" type="xs:string" minOccurs="1" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>Account number this case belongs to.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
 				<xs:element name="createdDate" type="xs:dateTime" minOccurs="0" />
 				<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" />
@@ -67,9 +98,9 @@
 				<xs:element name="severity" type="xs:string" minOccurs="0" />
 				<xs:element ref="tns:comments" minOccurs="0" />
 			</xs:sequence>
-			<xs:attribute name="caseNumber" type="xs:string" />
-			<xs:attribute name="isClosed" type="xs:boolean" />
-			<xs:attribute name="customerReferenceNumber" type="xs:string" />
+			<xs:attribute name="caseNumber" type="xs:string" use="optional" />
+			<xs:attribute name="isClosed" type="xs:boolean" use="optional" />
+			<xs:attribute name="customerReferenceNumber" type="xs:string" use="optional" />
 		</xs:complexType>
 	</xs:element>
 

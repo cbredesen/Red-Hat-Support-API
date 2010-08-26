@@ -1,0 +1,11 @@
+<project>
+        <version position="right" />
+        <publishDate position="right" />
+        <body>
+                <menu name="Project Overview">
+                        <item name="Introduction" href="index.html" />
+                        <item name="Resources" href="resources.html" />
+                </menu>
+                <menu ref="reports" />
+        </body>
+</project>

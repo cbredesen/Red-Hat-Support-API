@@ -45,7 +45,7 @@
 						<transformationSet>
 							<dir>src/main/resources</dir>
 							<includes>
-								<include>*.xsd</include>
+								<include>strata.xsd</include>
 							</includes>
 							<stylesheet>src/main/resources/xs3p.xsl</stylesheet>
 							<fileMappers>
@@ -67,6 +67,18 @@
 									<value>false</value>
 								</parameter>
 							</parameters>
+						</transformationSet>
+						<transformationSet>
+							<dir>src/main/resources</dir>
+							<includes>
+								<include>strata-wadl.xml</include>
+							</includes>
+							<stylesheet>src/main/resources/xs3p.xsl</stylesheet>
+							<fileMappers>
+								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+									<targetExtension>.html</targetExtension>
+								</fileMapper>
+							</fileMappers>
 						</transformationSet>
 					</transformationSets>
 					<addToClasspath>false</addToClasspath>
