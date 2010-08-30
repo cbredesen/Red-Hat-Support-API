@@ -2,14 +2,14 @@
 <application xmlns="http://wadl.dev.java.net/2009/02"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:strata="https://api.access.redhat.com/rs/">
-	
+
 	<doc title="Support Services API">Support services API documentation.  All methods require SSO
 	cookie or HTTP BASIC authentication.</doc>
 
 	<resources base="https://api.access.redhat.com/rs/">
 	
 		<resource path="cases">
-		
+
 			<method name="GET">
 				<request>
 					<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
@@ -87,10 +87,10 @@
 						<param name="comment-id" style="template" type="xsd:string" />
 
 						<method name="GET">
-							<response>
-								<representation mediaType="application/json" element="strata:comment" status="200" />
-								<representation mediaType="application/xml" element="strata:comment" status="200" />
-								<representation mediaType="text/plain" element="strata:comment" status="200" />
+							<response status="200">
+								<representation mediaType="application/json" element="strata:comment" />
+								<representation mediaType="application/xml" element="strata:comment" />
+								<representation mediaType="text/plain" element="strata:comment" />
 							</response>
 						</method>
 
@@ -115,10 +115,10 @@
 						<request>
 							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
 						</request>
-						<response>
-							<representation mediaType="application/json" status="200" />
-							<representation mediaType="application/xml" status="200" />
-							<representation mediaType="text/plain" status="200" />
+						<response status="200">
+							<representation mediaType="application/json" />
+							<representation mediaType="application/xml" />
+							<representation mediaType="text/plain" />
 						</response>
 					</method>
 
@@ -147,10 +147,10 @@
 							<request>
 								<param style="header" name="Content-Type" type="xs:string" required="true" />
 							</request>
-							<response>
-								<representation mediaType="application/json" status="200" />
-								<representation mediaType="application/xml" status="200" />
-								<representation mediaType="text/plain" status="200" />
+							<response status="200">
+								<representation mediaType="application/json" />
+								<representation mediaType="application/xml" />
+								<representation mediaType="text/plain" />
 							</response>
 						</method>
 

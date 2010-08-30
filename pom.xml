@@ -41,7 +41,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<transformationSets>
+					<transformationSets><!--
 						<transformationSet>
 							<dir>src/main/resources</dir>
 							<includes>
@@ -68,7 +68,7 @@
 								</parameter>
 							</parameters>
 						</transformationSet>
-						<transformationSet>
+						--><transformationSet>
 							<dir>src/main/resources</dir>
 							<includes>
 								<include>*wadl.xml</include>
