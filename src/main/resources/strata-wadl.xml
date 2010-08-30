@@ -1,7 +1,10 @@
 <?xml version="1.0"?>
-<application xmlns="http://research.sun.com/wadl/2006/10"
+<application xmlns="http://wadl.dev.java.net/2009/02"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:strata="https://api.access.redhat.com/rs/">
+	
+	<doc title="Support Services API">Support services API documentation.  Much more text should go here and explain what
+	this API is for.</doc>
 
 	<grammars>
 		<include href="strata.xsd" />
@@ -34,25 +37,27 @@
 				</response>
 			</method>
 
-			<method name="PUT">
-				<request>
-					<representation mediaType="application/json" element="strata:case" />
-					<representation mediaType="application/xml" element="strata:case" />
-				</request>
-				<response>
-					<representation mediaType="application/json" status="200" />
-					<representation mediaType="application/xml" status="200" />
-					<representation mediaType="text/plain" status="200" />
-				</response>
-			</method>
-
 			<resource path="{caseNumber}">
+				
+				<param name="caseNumber" style="template" type="xsd:string" />
 
 				<method name="GET">
 					<response>
 						<representation mediaType="application/json" element="strata:case" status="200" />
 						<representation mediaType="application/xml" element="strata:case" status="200" />
 						<representation mediaType="text/plain" element="strata:case" status="200" />
+					</response>
+				</method>
+
+				<method name="PUT">
+					<request>
+						<representation mediaType="application/json" element="strata:case" />
+						<representation mediaType="application/xml" element="strata:case" />
+					</request>
+					<response>
+						<representation mediaType="application/json" status="200" />
+						<representation mediaType="application/xml" status="200" />
+						<representation mediaType="text/plain" status="200" />
 					</response>
 				</method>
 
@@ -84,6 +89,8 @@
 
 					<resource path="{id}">
 
+						<param name="id" style="template" type="xsd:string" />
+
 						<method name="GET">
 							<response>
 								<representation mediaType="application/json" element="strata:comment" status="200" />
@@ -104,20 +111,6 @@
 							</response>
 						</method>
 
-						<resource path="status">
-
-							<method name="PUT">
-								<request>
-									<param name="public" style="query" type="xs:boolean" default="false" required="false" />
-								</request>
-								<response>
-									<representation mediaType="application/json" status="200" />
-									<representation mediaType="application/xml" status="200" />
-									<representation mediaType="text/plain" status="200" />
-								</response>
-							</method>
-
-						</resource>
 					</resource>
 				</resource>
 
@@ -143,6 +136,8 @@
 					</method>
 
 					<resource path="{uuid}">
+
+						<param name="uuid" style="template" type="xsd:string" />
 
 						<method name="GET">
 							<request>

@@ -155,7 +155,7 @@
                 <xsl:with-param name="base" select="$base"/>
             </xsl:apply-templates>
         </xsl:copy>
-    </xsl:template>
+	</xsl:template>
 
 <!-- debug $resources
     <xsl:template match="/">
@@ -191,7 +191,7 @@
         </xsl:if>
     </xsl:template>
     
-    <xsl:template match="wadl:resource[@type]" mode="include-href">
+    <xsl:template match="wadl:resource[@type]" mode="include-href">resource-type
         <xsl:variable name="uri" select="substring-before(@type, '#')"/>
         <xsl:if test="$uri">
             <xsl:variable name="included" select="document($uri, /)"/>
@@ -343,7 +343,7 @@
         </ul>        
     </xsl:template>
 
-    <xsl:template match="wadl:resource" mode="toc">
+    <xsl:template match="wadl:resource" mode="toc">resource
         <xsl:param name="context"/>
         <xsl:variable name="id"><xsl:call-template name="get-id"/></xsl:variable>
         <xsl:variable name="name"><xsl:value-of select="$context"/>/<xsl:value-of select="@path"/></xsl:variable>

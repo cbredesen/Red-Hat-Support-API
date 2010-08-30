@@ -71,9 +71,9 @@
 						<transformationSet>
 							<dir>src/main/resources</dir>
 							<includes>
-								<include>strata-wadl.xml</include>
+								<include>*wadl.xml</include>
 							</includes>
-							<stylesheet>src/main/resources/xs3p.xsl</stylesheet>
+							<stylesheet>src/main/resources/wadl2html.xsl</stylesheet>
 							<fileMappers>
 								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
 									<targetExtension>.html</targetExtension>
