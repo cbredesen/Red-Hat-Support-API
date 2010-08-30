@@ -3,49 +3,45 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:strata="https://api.access.redhat.com/rs/">
 	
-	<doc title="Support Services API">Support services API documentation.  Much more text should go here and explain what
-	this API is for.</doc>
-
-	<grammars>
-		<include href="strata.xsd" />
-	</grammars>
+	<doc title="Support Services API">Support services API documentation.  All methods require SSO
+	cookie or HTTP BASIC authentication.</doc>
 
 	<resources base="https://api.access.redhat.com/rs/">
 	
 		<resource path="cases">
 		
+			<method name="GET">
+				<request>
+					<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
+				</request>
+				<response status="200">
+					<representation mediaType="application/json" element="strata:cases" />
+					<representation mediaType="application/xml" element="strata:cases" />
+					<representation mediaType="text/plain" element="strata:cases" />
+				</response>
+			</method>
+
 			<method name="POST">
 				<request>
 					<representation mediaType="application/json" element="strata:case" />
 					<representation mediaType="application/xml" element="strata:case" />
 				</request>
-				<response>
-					<representation mediaType="application/json" status="200" />
-					<representation mediaType="application/xml" status="200" />
-					<representation mediaType="text/plain" status="200" />
+				<response status="201">
+					<representation mediaType="application/json" />
+					<representation mediaType="application/xml" />
+					<representation mediaType="text/plain" />
 				</response>
 			</method>
 
-			<method name="GET">
-				<request>
-					<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
-				</request>
-				<response>
-					<representation mediaType="application/json" element="strata:cases" status="200" />
-					<representation mediaType="application/xml" element="strata:cases" status="200" />
-					<representation mediaType="text/plain" element="strata:cases" status="200" />
-				</response>
-			</method>
-
-			<resource path="{caseNumber}">
+			<resource path="{case-id}">
 				
-				<param name="caseNumber" style="template" type="xsd:string" />
+				<param name="case-id" style="template" type="xsd:string" />
 
 				<method name="GET">
-					<response>
-						<representation mediaType="application/json" element="strata:case" status="200" />
-						<representation mediaType="application/xml" element="strata:case" status="200" />
-						<representation mediaType="text/plain" element="strata:case" status="200" />
+					<response status="200">
+						<representation mediaType="application/json" element="strata:case" />
+						<representation mediaType="application/xml" element="strata:case" />
+						<representation mediaType="text/plain" element="strata:case" />
 					</response>
 				</method>
 
@@ -54,26 +50,14 @@
 						<representation mediaType="application/json" element="strata:case" />
 						<representation mediaType="application/xml" element="strata:case" />
 					</request>
-					<response>
-						<representation mediaType="application/json" status="200" />
-						<representation mediaType="application/xml" status="200" />
-						<representation mediaType="text/plain" status="200" />
+					<response status="204">
+						<representation mediaType="application/json" />
+						<representation mediaType="application/xml" />
+						<representation mediaType="text/plain" />
 					</response>
 				</method>
 
 				<resource path="comments">
-
-					<method name="POST">
-						<request>
-							<representation mediaType="application/json" element="strata:comment" />
-							<representation mediaType="application/xml" element="strata:comment" />
-						</request>
-						<response>
-							<representation mediaType="application/json" status="200" />
-							<representation mediaType="application/xml" status="200" />
-							<representation mediaType="text/plain" status="200" />
-						</response>
-					</method>
 
 					<method name="GET">
 						<request>
@@ -86,10 +70,21 @@
 						</response>
 					</method>
 
+					<method name="POST">
+						<request>
+							<representation mediaType="application/json" element="strata:comment" />
+							<representation mediaType="application/xml" element="strata:comment" />
+						</request>
+						<response status="201">
+							<representation mediaType="application/json" />
+							<representation mediaType="application/xml" />
+							<representation mediaType="text/plain" />
+						</response>
+					</method>
 
-					<resource path="{id}">
+					<resource path="{comment-id}">
 
-						<param name="id" style="template" type="xsd:string" />
+						<param name="comment-id" style="template" type="xsd:string" />
 
 						<method name="GET">
 							<response>
@@ -104,10 +99,10 @@
 								<representation mediaType="application/json" element="strata:comment" />
 								<representation mediaType="application/xml" element="strata:comment" />
 							</request>
-							<response>
-								<representation mediaType="application/json" status="200" />
-								<representation mediaType="application/xml" status="200" />
-								<representation mediaType="text/plain" status="200" />
+							<response status="204">
+								<representation mediaType="application/json" />
+								<representation mediaType="application/xml" />
+								<representation mediaType="text/plain" />
 							</response>
 						</method>
 
@@ -115,14 +110,6 @@
 				</resource>
 
 				<resource path="attachments">
-
-					<method name="POST">
-						<response>
-							<representation mediaType="application/json" status="200" />
-							<representation mediaType="application/xml" status="200" />
-							<representation mediaType="text/plain" status="200" />
-						</response>
-					</method>
 
 					<method name="GET">
 						<request>
@@ -135,25 +122,30 @@
 						</response>
 					</method>
 
-					<resource path="{uuid}">
+					<method name="POST">
+						<response status="201">
+							<representation mediaType="application/json" />
+							<representation mediaType="application/xml" />
+							<representation mediaType="text/plain" />
+						</response>
+					</method>
 
-						<param name="uuid" style="template" type="xsd:string" />
+					<resource path="{comment-id}">
+
+						<param name="comment-id" style="template" type="xsd:string" />
 
 						<method name="GET">
 							<request>
-								<param name="Range" style="header" type="xs:string" required="true" />
+								<param name="range" style="header" type="xs:string" required="true" />
 							</request>
-							<response>
-								<representation mediaType="application/octet-stream" status="200" />
-								<representation mediaType="text/html" status="200" />
-								<representation mediaType="text/xml" status="200" />
-								<representation mediaType="text/plain" status="200" />
+							<response status="200">
+								<representation mediaType="application/octet-stream" />
 							</response>
 						</method>
 
 						<method name="PUT">
 							<request>
-								<param name="Content-Type" style="header" type="xs:string" required="true" />
+								<param style="header" name="Content-Type" type="xs:string" required="true" />
 							</request>
 							<response>
 								<representation mediaType="application/json" status="200" />
