@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+s<?xml version="1.0"?>
 <application xmlns="http://wadl.dev.java.net/2009/02"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	xmlns:strata="https://api.access.redhat.com/rs/">
@@ -8,7 +8,50 @@
 
 	<resources base="https://api.access.redhat.com/rs/">
 	
-		<resource path="cases">
+	  <resource path="products">
+		<method name="GET">
+		  <response status="200">
+			<representation mediaType="application/json" element="strata:products" />
+			<representation mediaType="text/xml" element="strata:products" />
+			<representation mediaType="text/plain" element="strata:products" />
+		  </response>
+		</method>
+
+		<resource path="${product-id}">
+		  <param style="template" name="product-id" type="xsd:string" />
+		  <method name="GET">
+			<response status="200">
+			  <representation mediaType="application/json" element="strata:products" />
+			  <representation mediaType="text/xml" element="strata:products" />
+			  <representation mediaType="text/plain" element="strata:products" />
+			</response>
+		  </method>
+
+			<resource path="versions">
+			  <method name="GET">
+				<response status="200">
+				  <representation mediaType="application/json" element="strata:products" />
+				  <representation mediaType="text/xml" element="strata:products" />
+				  <representation mediaType="text/plain" element="strata:products" />
+				</response>
+			  </method>
+
+				<resource path="<version-id>">
+				  <param style="template" name="version-id" type="xsd:string" />
+				  <method name="GET">
+					<response status="200">
+					  <representation mediaType="application/json" element="strata:products" />
+					  <representation mediaType="text/xml" element="strata:products" />
+					  <representation mediaType="text/plain" element="strata:products" />
+					</response>
+				  </method>
+					
+				</resource>
+			</resource>
+		</resource>
+	  </resource>
+
+			<resource path="cases">
 
 			<method name="GET">
 				<request>
