@@ -20,7 +20,7 @@ import com.redhat.gss.strata.model.Values;
 @Path("/values")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Mapped(namespaceMap = {@XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata")})
-public interface ListValuesService {
+public interface ValuesService {
 
 	/**
 	 * List products

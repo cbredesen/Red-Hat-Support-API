@@ -1,57 +1,73 @@
-s<?xml version="1.0"?>
-<application xmlns="http://wadl.dev.java.net/2009/02"
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+<?xml version="1.0"?>
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 	xmlns:strata="https://api.access.redhat.com/rs/">
 
-	<doc title="Support Services API">Support services API documentation.  All methods require SSO
-	cookie or HTTP BASIC authentication.</doc>
+	<doc title="Support Services API">Support services API documentation. All methods require SSO
+		cookie or HTTP BASIC authentication.</doc>
 
 	<resources base="https://api.access.redhat.com/rs/">
-	
-	  <resource path="products">
-		<method name="GET">
-		  <response status="200">
-			<representation mediaType="application/json" element="strata:products" />
-			<representation mediaType="text/xml" element="strata:products" />
-			<representation mediaType="text/plain" element="strata:products" />
-		  </response>
-		</method>
 
-		<resource path="${product-id}">
-		  <param style="template" name="product-id" type="xsd:string" />
-		  <method name="GET">
-			<response status="200">
-			  <representation mediaType="application/json" element="strata:products" />
-			  <representation mediaType="text/xml" element="strata:products" />
-			  <representation mediaType="text/plain" element="strata:products" />
-			</response>
-		  </method>
+		<resource path="products">
 
-			<resource path="versions">
-			  <method name="GET">
+			<doc>A list of all products available to the calling user.</doc>
+
+			<method name="GET">
 				<response status="200">
-				  <representation mediaType="application/json" element="strata:products" />
-				  <representation mediaType="text/xml" element="strata:products" />
-				  <representation mediaType="text/plain" element="strata:products" />
+					<representation mediaType="application/json" element="strata:products" />
+					<representation mediaType="text/xml" element="strata:products" />
+					<representation mediaType="text/plain" element="strata:products" />
 				</response>
-			  </method>
+			</method>
 
-				<resource path="<version-id>">
-				  <param style="template" name="version-id" type="xsd:string" />
-				  <method name="GET">
+			<resource path="{product-id}">
+
+				<doc>A single product. TODO how does this differ from /product/id/versions/ver?</doc>
+
+				<param style="template" name="product-id" type="xsd:string" />
+
+				<method name="GET">
 					<response status="200">
-					  <representation mediaType="application/json" element="strata:products" />
-					  <representation mediaType="text/xml" element="strata:products" />
-					  <representation mediaType="text/plain" element="strata:products" />
+						<representation mediaType="application/json" element="strata:product" />
+						<representation mediaType="text/xml" element="strata:product" />
+						<representation mediaType="text/plain" element="strata:product" />
 					</response>
-				  </method>
-					
+				</method>
+
+				<resource path="versions">
+
+					<doc>A list of all versions of a product.</doc>
+
+					<method name="GET">
+						<response status="200">
+							<representation mediaType="application/json" element="strata:products" />
+							<representation mediaType="text/xml" element="strata:products" />
+							<representation mediaType="text/plain" element="strata:products" />
+						</response>
+					</method>
+
+					<resource path="{version-id}">
+
+						<doc>A single product of a specific version.</doc>
+
+						<param style="template" name="version-id" type="xsd:string" />
+
+						<method name="GET">
+							<response status="200">
+								<representation mediaType="application/json" element="strata:product" />
+								<representation mediaType="text/xml" element="strata:product" />
+								<representation mediaType="text/plain" element="strata:product" />
+							</response>
+						</method>
+
+					</resource>
 				</resource>
 			</resource>
 		</resource>
-	  </resource>
 
-			<resource path="cases">
+		<resource path="cases">
+
+			<doc>A list of all support cases visible to the calling user. Available as an overview/result list
+				or as a full list of all case details.</doc>
 
 			<method name="GET">
 				<request>
@@ -65,11 +81,14 @@ s<?xml version="1.0"?>
 			</method>
 
 			<method name="POST">
+				<doc>Create a new case. One or more case elements should be included. URI of the
+					new case is returned in the Location header of successful operations.</doc>
 				<request>
 					<representation mediaType="application/json" element="strata:case" />
 					<representation mediaType="text/xml" element="strata:case" />
 				</request>
 				<response status="201">
+					<param style="header" name="Location" />
 					<representation mediaType="application/json" />
 					<representation mediaType="text/xml" />
 					<representation mediaType="text/plain" />
@@ -77,6 +96,8 @@ s<?xml version="1.0"?>
 			</method>
 
 			<resource path="{case-id}">
+
+				<doc>A support case.</doc>
 
 				<param style="template" name="case-id" type="xsd:string" />
 
@@ -102,7 +123,10 @@ s<?xml version="1.0"?>
 
 				<resource path="comments">
 
+					<doc>Comments associated with a specific support case.</doc>
+
 					<method name="GET">
+						<doc>Get all comments associated with a support case.</doc>
 						<request>
 							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
 						</request>
@@ -114,11 +138,13 @@ s<?xml version="1.0"?>
 					</method>
 
 					<method name="POST">
+						<doc>Add a comment to a specific support case. URI of new comment provided in the Location header.</doc>
 						<request>
 							<representation mediaType="application/json" element="strata:comment" />
 							<representation mediaType="text/xml" element="strata:comment" />
 						</request>
 						<response status="201">
+							<param style="header" name="Location" />
 							<representation mediaType="application/json" />
 							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
@@ -126,6 +152,9 @@ s<?xml version="1.0"?>
 					</method>
 
 					<resource path="{comment-id}">
+
+						<doc>A case comment. This is not expected to be used frequently but it is provided
+							as a resource URI to PUT comment updates to.</doc>
 
 						<param name="comment-id" style="template" type="xsd:string" />
 
@@ -138,6 +167,7 @@ s<?xml version="1.0"?>
 						</method>
 
 						<method name="PUT">
+							<doc>Update an existing case comment.</doc>
 							<request>
 								<representation mediaType="application/json" element="strata:comment" />
 								<representation mediaType="text/xml" element="strata:comment" />
@@ -154,6 +184,8 @@ s<?xml version="1.0"?>
 
 				<resource path="attachments">
 
+					<doc>A list of attachments for a specific case.</doc>
+
 					<method name="GET">
 						<request>
 							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
@@ -166,16 +198,21 @@ s<?xml version="1.0"?>
 					</method>
 
 					<method name="POST">
+						<doc>Create new attachment information on a support case.</doc>
 						<response status="201">
+							<param style="header" name="Location" />
 							<representation mediaType="application/json" />
 							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
 					</method>
 
-					<resource path="{comment-id}">
+					<resource path="{attachment-id}">
 
-						<param name="comment-id" style="template" type="xsd:string" />
+						<doc>Meta-data about a specific attachment. The URI of the actual attached binary file
+							is available in this element.</doc>
+
+						<param name="attachment-id" style="template" type="xsd:string" />
 
 						<method name="GET">
 							<request>

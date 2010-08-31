@@ -14,6 +14,10 @@
 		<head>
 			<title><xsl:value-of select="$title"/></title>
 			<style>
+				body {
+				    font-family: "Liberation Sans", "Lucida Grande", "Luxi Sans", "Trebuchet MS", "Bitstream Vera Sans", helvetica, verdana, arial, sans-serif;				
+				}
+
 				div h1 {
 					font-size: 1em;
 				}
@@ -25,7 +29,7 @@
 				div.resource {
 					border: 1px solid silver;
 					background-color: #F3F3F3;
-					margin: 1ex 0;
+					margin: 2ex 0;
 					padding: 1ex 1em;
 					-moz-border-radius: 10px;
 					-webkit-border-radius: 10px;				
@@ -46,7 +50,16 @@
 		</body>
 		</html>
 	</xsl:template>
-	
+
+	<xsl:template match="wadl:doc">
+		<div class="doc">
+			<xsl:if test="@title">
+			<h1><xsl:value-of select="@title" /></h1>
+			</xsl:if>
+			<xsl:value-of select="." />
+		</div>
+	</xsl:template>
+
 	<xsl:template match="wadl:resources">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -56,6 +69,7 @@
 		<xsl:variable name="absolute-path"><xsl:value-of select="$path"/><xsl:value-of select="@path"/>/</xsl:variable>
 		<div class="resource">
 			<h1>Resource:&#160;<xsl:value-of select="$absolute-path" /></h1>
+			<xsl:apply-templates select="wadl:doc" />
 			<xsl:apply-templates select="wadl:method">
 				<xsl:with-param name="path"><xsl:value-of select="$absolute-path"/></xsl:with-param>
 			</xsl:apply-templates>
