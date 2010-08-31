@@ -130,10 +130,10 @@
 						<request>
 							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
 						</request>
-						<response>
-							<representation mediaType="application/json" element="strata:comments" status="200" />
-							<representation mediaType="text/xml" element="strata:comments" status="200" />
-							<representation mediaType="text/plain" element="strata:comments" status="200" />
+						<response status="200">
+							<representation mediaType="application/json" element="strata:comments" />
+							<representation mediaType="text/xml" element="strata:comments" />
+							<representation mediaType="text/plain" element="strata:comments" />
 						</response>
 					</method>
 

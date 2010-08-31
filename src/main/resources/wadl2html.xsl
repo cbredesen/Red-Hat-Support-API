@@ -70,6 +70,7 @@
 		<div class="resource">
 			<h1>Resource:&#160;<xsl:value-of select="$absolute-path" /></h1>
 			<xsl:apply-templates select="wadl:doc" />
+			<xsl:apply-templates select="wadl:param" />
 			<xsl:apply-templates select="wadl:method">
 				<xsl:with-param name="path"><xsl:value-of select="$absolute-path"/></xsl:with-param>
 			</xsl:apply-templates>
@@ -89,22 +90,36 @@
 
 	<xsl:template match="wadl:request">
 		<div class="request">
-			<h1>Request</h1>
-			<xsl:apply-templates/>
+			<xsl:apply-templates />
+			<xsl:if test="wadl:representation">
+				<ul class="representation">
+				<xsl:for-each select="wadl:representation">
+					<li><xsl:call-template name="representation"/></li>
+				</xsl:for-each>
+				</ul>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
 	<xsl:template match="wadl:response">
 		<div class="response">
 			<h1>Response&#160;<xsl:value-of select="@status"/></h1>
-			<xsl:apply-templates/>
+			<xsl:apply-templates />
+			<xsl:if test="wadl:representation">
+				<ul class="representation">
+				<xsl:for-each select="wadl:representation">
+					<li><xsl:call-template name="representation"/></li>
+				</xsl:for-each>
+				</ul>
+			</xsl:if>
 		</div>
 	</xsl:template>
 
-	<xsl:template match="wadl:representation">
-		<div class="representation">
-			<xsl:value-of select="@mediaType"/>
-		</div>
+	<xsl:template name="representation">
+		<xsl:value-of select="@mediaType"/>
+		<xsl:if test="@element">
+			&#160;(Element: <xsl:value-of select="@element"/>)
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="wadl:param">
