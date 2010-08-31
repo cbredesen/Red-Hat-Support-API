@@ -17,6 +17,27 @@
 				div h1 {
 					font-size: 1em;
 				}
+				
+				div.method {
+					margin: 1ex 1em;
+				}
+				
+				div.resource {
+					border: 1px solid silver;
+					background-color: #F3F3F3;
+					margin: 1ex 0;
+					padding: 1ex 1em;
+					-moz-border-radius: 10px;
+					-webkit-border-radius: 10px;				
+				}
+				
+				div.resource h1 {
+					font-size: 1.5em;
+				}
+
+				div.method h1 {
+					font-size: 1em;
+				}
 			</style>
 		</head>
 		<body>
