@@ -12,11 +12,11 @@
 
 			<method name="GET">
 				<request>
-					<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
+					<param style="query" name="detail" type="xsd:boolean" default="false" required="false" />
 				</request>
 				<response status="200">
 					<representation mediaType="application/json" element="strata:cases" />
-					<representation mediaType="application/xml" element="strata:cases" />
+					<representation mediaType="text/xml" element="strata:cases" />
 					<representation mediaType="text/plain" element="strata:cases" />
 				</response>
 			</method>
@@ -24,23 +24,23 @@
 			<method name="POST">
 				<request>
 					<representation mediaType="application/json" element="strata:case" />
-					<representation mediaType="application/xml" element="strata:case" />
+					<representation mediaType="text/xml" element="strata:case" />
 				</request>
 				<response status="201">
 					<representation mediaType="application/json" />
-					<representation mediaType="application/xml" />
+					<representation mediaType="text/xml" />
 					<representation mediaType="text/plain" />
 				</response>
 			</method>
 
 			<resource path="{case-id}">
-				
-				<param name="case-id" style="template" type="xsd:string" />
+
+				<param style="template" name="case-id" type="xsd:string" />
 
 				<method name="GET">
 					<response status="200">
 						<representation mediaType="application/json" element="strata:case" />
-						<representation mediaType="application/xml" element="strata:case" />
+						<representation mediaType="text/xml" element="strata:case" />
 						<representation mediaType="text/plain" element="strata:case" />
 					</response>
 				</method>
@@ -48,11 +48,11 @@
 				<method name="PUT">
 					<request>
 						<representation mediaType="application/json" element="strata:case" />
-						<representation mediaType="application/xml" element="strata:case" />
+						<representation mediaType="text/xml" element="strata:case" />
 					</request>
 					<response status="204">
 						<representation mediaType="application/json" />
-						<representation mediaType="application/xml" />
+						<representation mediaType="text/xml" />
 						<representation mediaType="text/plain" />
 					</response>
 				</method>
@@ -65,7 +65,7 @@
 						</request>
 						<response>
 							<representation mediaType="application/json" element="strata:comments" status="200" />
-							<representation mediaType="application/xml" element="strata:comments" status="200" />
+							<representation mediaType="text/xml" element="strata:comments" status="200" />
 							<representation mediaType="text/plain" element="strata:comments" status="200" />
 						</response>
 					</method>
@@ -73,11 +73,11 @@
 					<method name="POST">
 						<request>
 							<representation mediaType="application/json" element="strata:comment" />
-							<representation mediaType="application/xml" element="strata:comment" />
+							<representation mediaType="text/xml" element="strata:comment" />
 						</request>
 						<response status="201">
 							<representation mediaType="application/json" />
-							<representation mediaType="application/xml" />
+							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
 					</method>
@@ -89,7 +89,7 @@
 						<method name="GET">
 							<response status="200">
 								<representation mediaType="application/json" element="strata:comment" />
-								<representation mediaType="application/xml" element="strata:comment" />
+								<representation mediaType="text/xml" element="strata:comment" />
 								<representation mediaType="text/plain" element="strata:comment" />
 							</response>
 						</method>
@@ -97,11 +97,11 @@
 						<method name="PUT">
 							<request>
 								<representation mediaType="application/json" element="strata:comment" />
-								<representation mediaType="application/xml" element="strata:comment" />
+								<representation mediaType="text/xml" element="strata:comment" />
 							</request>
 							<response status="204">
 								<representation mediaType="application/json" />
-								<representation mediaType="application/xml" />
+								<representation mediaType="text/xml" />
 								<representation mediaType="text/plain" />
 							</response>
 						</method>
@@ -117,7 +117,7 @@
 						</request>
 						<response status="200">
 							<representation mediaType="application/json" />
-							<representation mediaType="application/xml" />
+							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
 					</method>
@@ -125,7 +125,7 @@
 					<method name="POST">
 						<response status="201">
 							<representation mediaType="application/json" />
-							<representation mediaType="application/xml" />
+							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
 					</method>
@@ -149,7 +149,7 @@
 							</request>
 							<response status="200">
 								<representation mediaType="application/json" />
-								<representation mediaType="application/xml" />
+								<representation mediaType="text/xml" />
 								<representation mediaType="text/plain" />
 							</response>
 						</method>
