@@ -19,6 +19,10 @@
 				</response>
 			</method>
 
+			<method name="HEAD">
+			  <response status="200" />
+			</method>
+
 			<resource path="{product-id}">
 
 				<doc>A single product. TODO how does this differ from /product/id/versions/ver?</doc>
@@ -33,16 +37,24 @@
 					</response>
 				</method>
 
+				<method name="HEAD">
+					<response status="200" />
+				</method>
+
 				<resource path="versions">
 
 					<doc>A list of all versions of a product.</doc>
 
 					<method name="GET">
 						<response status="200">
-							<representation mediaType="application/json" element="strata:products" />
-							<representation mediaType="text/xml" element="strata:products" />
-							<representation mediaType="text/plain" element="strata:products" />
+							<representation mediaType="application/json" element="strata:product" />
+							<representation mediaType="text/xml" element="strata:product" />
+							<representation mediaType="text/plain" element="strata:product" />
 						</response>
+					</method>
+
+					<method name="HEAD">
+					  <response status="200" />
 					</method>
 
 					<resource path="{version-id}">
@@ -57,6 +69,10 @@
 								<representation mediaType="text/xml" element="strata:product" />
 								<representation mediaType="text/plain" element="strata:product" />
 							</response>
+						</method>
+
+						<method name="HEAD">
+						  <response status="200" />
 						</method>
 
 					</resource>
@@ -78,6 +94,10 @@
 					<representation mediaType="text/xml" element="strata:cases" />
 					<representation mediaType="text/plain" element="strata:cases" />
 				</response>
+			</method>
+
+			<method name="HEAD">
+			  <response status="200" />
 			</method>
 
 			<method name="POST">
@@ -109,6 +129,10 @@
 					</response>
 				</method>
 
+				<method name="HEAD">
+					<response status="200" />
+				</method>
+
 				<method name="PUT">
 					<request>
 						<representation mediaType="application/json" element="strata:case" />
@@ -135,6 +159,10 @@
 							<representation mediaType="text/xml" element="strata:comments" />
 							<representation mediaType="text/plain" element="strata:comments" />
 						</response>
+					</method>
+
+					<method name="HEAD">
+					  <response status="200" />
 					</method>
 
 					<method name="POST">
@@ -164,6 +192,10 @@
 								<representation mediaType="text/xml" element="strata:comment" />
 								<representation mediaType="text/plain" element="strata:comment" />
 							</response>
+						</method>
+
+						<method name="HEAD">
+						  <response status="200" />
 						</method>
 
 						<method name="PUT">
@@ -197,6 +229,10 @@
 						</response>
 					</method>
 
+					<method name="HEAD">
+					  <response status="200" />
+					</method>
+
 					<method name="POST">
 						<doc>Create new attachment information on a support case.</doc>
 						<response status="201">
@@ -221,6 +257,10 @@
 							<response status="200">
 								<representation mediaType="application/octet-stream" />
 							</response>
+						</method>
+
+						<method name="HEAD">
+						  <response status="200" />
 						</method>
 
 						<method name="PUT">
@@ -250,6 +290,9 @@
 				  <representation mediaType="text/xml" element="strata:accounts" />
 				  <representation mediaType="text/plain" element="strata:accounts" />
 				</method>
+				<method name="HEAD">
+					<response status="200" />
+				</method>
 				<method name="POST">
 				  <representation mediaType="application/json" element="strata:accounts" />
 				  <representation mediaType="text/xml" element="strata:accounts" />
@@ -262,6 +305,9 @@
 				  <representation mediaType="application/json" element="strata:accounts" />
 				  <representation mediaType="text/xml" element="strata:accounts" />
 				  <representation mediaType="text/plain" element="strata:accounts" />
+				</method>
+				<method name="HEAD">
+					<response status="200" />
 				</method>
 				<method name="PUT">
 				  <representation mediaType="application/json" element="strata:accounts" />
