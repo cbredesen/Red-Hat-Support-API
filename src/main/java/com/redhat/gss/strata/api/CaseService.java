@@ -56,8 +56,7 @@ public interface CaseService {
 	@PUT
 	@Path("/{caseNumber}")
 	@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response updateCase(
-			final @PathParam("caseNumber") String caseNumber, 
+	public Response updateCase(@PathParam("caseNumber") String caseNumber, 
 			@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") }) Case supportCase);
 
 	/**
@@ -72,8 +71,7 @@ public interface CaseService {
 	 */
 	@GET
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
-	public Cases listCases(
-			final @QueryParam("detail") @DefaultValue("false") boolean detail);
+	public Cases listCases(@QueryParam("detail") @DefaultValue("false") boolean detail);
 
 	/**
 	 * Retrieve case. The default behavior is to emit xml, although an Accept:
@@ -85,7 +83,7 @@ public interface CaseService {
 	@GET
 	@Path("/{caseNumber}")
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
-	public Case getCase(final @PathParam("caseNumber") String caseNumber);
+	public Case getCase(@PathParam("caseNumber") String caseNumber);
 
 	/**
 	 * Upload a file to a case using the POST method. Note that this method is
@@ -101,8 +99,7 @@ public interface CaseService {
 	@POST
 	@Path("/{caseNumber}/attachments")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response addAttachment(
-			final @PathParam("caseNumber") String caseNumber);
+	public Response addAttachment(@PathParam("caseNumber") String caseNumber);
 
 	/**
 	 * List files attached to a support case.
@@ -118,8 +115,8 @@ public interface CaseService {
 	@Path("/{caseNumber}/attachments")
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
 	public Response listAttachments(
-			final @PathParam("caseNumber") String caseNumber,
-			final @QueryParam("detail") @DefaultValue("false") boolean detail);
+			@PathParam("caseNumber") String caseNumber,
+			@QueryParam("detail") @DefaultValue("false") boolean detail);
 
 	/**
 	 * Download a file using the GET method. Note that this method is
@@ -145,9 +142,9 @@ public interface CaseService {
 	@Produces( { MediaType.APPLICATION_OCTET_STREAM, MediaType.TEXT_HTML,
 			MediaType.TEXT_XML, MediaType.TEXT_PLAIN })
 	public Response getAttachment(
-			final @PathParam("caseNumber") String caseNumber,
-			final @PathParam("uuid") String uuid,
-			final @HeaderParam("Range") String range);
+			@PathParam("caseNumber") String caseNumber,
+			@PathParam("uuid") String uuid,
+			@HeaderParam("Range") String range);
 
 	/**
 	 * Append a file using the PUT method. This method allows for the addition
@@ -170,9 +167,9 @@ public interface CaseService {
 	@Path("/{caseNumber}/attachments/{uuid}")
 	@Consumes( { MediaType.APPLICATION_OCTET_STREAM })
 	public Response appendAttachment(
-			final @PathParam("caseNumber") String caseNumber,
-			final @PathParam("uuid") String uuid,
-			final @HeaderParam(HttpHeaderNames.CONTENT_TYPE) String contentType);
+			@PathParam("caseNumber") String caseNumber,
+			@PathParam("uuid") String uuid,
+			@HeaderParam(HttpHeaderNames.CONTENT_TYPE) String contentType);
 
 	/**
 	 * Add a comment and / or tags to supportCase using json/xml
@@ -186,7 +183,7 @@ public interface CaseService {
 	@Path("/{caseNumber}/comments")
 	@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response addComment(
-			final @PathParam("caseNumber") String caseNumber,
+			@PathParam("caseNumber") String caseNumber,
 			@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") }) Comment comment);
 
 	/**
@@ -205,8 +202,8 @@ public interface CaseService {
 	@Path("/{caseNumber}/comments/{id}")
 	@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Response updateComment(
-			final @PathParam("caseNumber") String caseNumber,
-			final @PathParam("id") String uuid,
+			@PathParam("caseNumber") String caseNumber,
+			@PathParam("id") String uuid,
 			@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") }) Comment comment);
 
 	/**
@@ -229,8 +226,8 @@ public interface CaseService {
 	@Path("/{caseNumber}/comments")
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
 	public Comments listComments(
-			final @PathParam("caseNumber") String caseNumber,
-			final @QueryParam("detail") @DefaultValue("false") boolean detail);
+			@PathParam("caseNumber") String caseNumber,
+			@QueryParam("detail") @DefaultValue("false") boolean detail);
 
 	/**
 	 * Retrieve case comment. The default behavior is to emit xml, although an
@@ -248,8 +245,8 @@ public interface CaseService {
 	@Path("/{caseNumber}/comments/{id}")
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
 	public Comment getComment(
-			final @PathParam("caseNumber") String caseNumber,
-			final @PathParam("id") String uuid);
+			@PathParam("caseNumber") String caseNumber,
+			@PathParam("id") String uuid);
 
 	/**
 	 * Set comment status to public or private.
@@ -272,8 +269,8 @@ public interface CaseService {
 	@Path("/{caseNumber}/comments/{id}/status")
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
 	public Response setCommentPublic(
-			final @PathParam("caseNumber") String caseNumber,
-			final @PathParam("id") String id,
-			final @QueryParam("public") @DefaultValue("false") boolean publik);
+			@PathParam("caseNumber") String caseNumber,
+			@PathParam("id") String id,
+			@QueryParam("public") @DefaultValue("false") boolean publik);
 
 }

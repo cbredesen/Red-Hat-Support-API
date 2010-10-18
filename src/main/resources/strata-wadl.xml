@@ -20,7 +20,7 @@
 			</method>
 
 			<method name="HEAD">
-			  <response status="200" />
+				<response status="200" />
 			</method>
 
 			<resource path="{product-id}">
@@ -279,44 +279,65 @@
 				</resource>
 			</resource>
 		</resource>
+
 		<resource path="accounts">
-		  <doc>A list of customer accounts, not currently implemented</doc>
-		  <resource path="{account-id}">
-			<doc>Information about a customer account, not currently implemented</doc>
-			<resource path="case-groups">
-			  <doc>A list of case groups/folders for an account</doc>
-				<method name="GET">
-				  <representation mediaType="application/json" element="strata:accounts" />
-				  <representation mediaType="text/xml" element="strata:accounts" />
-				  <representation mediaType="text/plain" element="strata:accounts" />
-				</method>
-				<method name="HEAD">
-					<response status="200" />
-				</method>
-				<method name="POST">
-				  <representation mediaType="application/json" element="strata:accounts" />
-				  <representation mediaType="text/xml" element="strata:accounts" />
-				  <representation mediaType="text/plain" element="strata:accounts" />
-				</method>
-			  <resource path="{case-group-id}">
-				<param style="template" name="case-group-id" type="xsd:string" />
-				<doc>Information about a customer case group</doc>
-				<method name="GET">
-				  <representation mediaType="application/json" element="strata:accounts" />
-				  <representation mediaType="text/xml" element="strata:accounts" />
-				  <representation mediaType="text/plain" element="strata:accounts" />
-				</method>
-				<method name="HEAD">
-					<response status="200" />
-				</method>
-				<method name="PUT">
-				  <representation mediaType="application/json" element="strata:accounts" />
-				  <representation mediaType="text/xml" element="strata:accounts" />
-				  <representation mediaType="text/plain" element="strata:accounts" />
-				</method>
-			  </resource>
+
+			<doc>A list of customer accounts, not currently implemented</doc>
+
+			<resource path="{account-id}">
+
+				<doc>Information about a customer account, not currently implemented</doc>
+
+				<resource path="case-groups">
+
+					<doc>A list of case groups/folders for an account</doc>
+
+					<method name="GET">
+						<representation mediaType="application/json" element="strata:accounts" />
+						<representation mediaType="text/xml" element="strata:accounts" />
+						<representation mediaType="text/plain" element="strata:accounts" />
+					</method>
+
+					<method name="HEAD">
+						<response status="200" />
+					</method>
+
+					<method name="POST">
+						<representation mediaType="application/json" element="strata:accounts" />
+						<representation mediaType="text/xml" element="strata:accounts" />
+						<representation mediaType="text/plain" element="strata:accounts" />
+					</method>
+
+					<resource path="{case-group-id}">
+
+						<param style="template" name="case-group-id" type="xsd:string" />
+
+						<doc>Information about a customer case group</doc>
+
+						<method name="GET">
+							<representation mediaType="application/json" element="strata:accounts" />
+							<representation mediaType="text/xml" element="strata:accounts" />
+							<representation mediaType="text/plain" element="strata:accounts" />
+						</method>
+
+						<method name="HEAD">
+							<response status="200" />
+						</method>
+
+						<method name="PUT">
+							<representation mediaType="application/json" element="strata:accounts" />
+							<representation mediaType="text/xml" element="strata:accounts" />
+							<representation mediaType="text/plain" element="strata:accounts" />
+						</method>
+
+					</resource>
+
+				</resource>
+
 			</resource>
-		  </resource>
+
 		</resource>
+
 	</resources>
+
 </application>
