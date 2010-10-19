@@ -16,7 +16,7 @@
 					case elements.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
-				<xs:element ref="tns:case" maxOccurs="unbounded" />
+				<xs:element ref="tns:case" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
@@ -28,31 +28,34 @@
 				<xs:documentation>A support case as viewed by an internal customer.</xs:documentation>
 			</xs:annotation>
 			<xs:sequence>
-				<xs:element name="uri" type="xs:anyURI" minOccurs="0">
+				<xs:element name="uri" type="xs:anyURI" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>RESTful URI for this case resource.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="summary" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="summary" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation>Title or short summary.</xs:documentation>
+						<xs:documentation>Title or short summary.  This field is required by the model
+						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation>Description of the problem or question.</xs:documentation>
+						<xs:documentation>Description of the problem or question.  This field is required by the model
+						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="status" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>Case status.  Valid values are available from 
 						the values service.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="product" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="product" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>Product this case relates to.  Valid products 
-						are available from the values service.</xs:documentation>
+						are available from the products resource.  This field is required by the model
+						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="component" type="xs:string" minOccurs="0" maxOccurs="1">
@@ -62,7 +65,7 @@
 						service.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="version" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
 						<xs:documentation>Version of the product this case relates to.
 						Valid versions for a given product are available from the values
@@ -75,9 +78,11 @@
 						Valid types are available from the values service.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="accountNumber" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:element name="accountNumber" type="xs:string" minOccurs="0" maxOccurs="1">
 					<xs:annotation>
-						<xs:documentation>Account number this case belongs to.</xs:documentation>
+						<xs:documentation>Account number this case belongs to.  This field is required 
+						by the model but the schema allows it to be omitted so that field-level updates 
+						are possible.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
@@ -134,6 +139,38 @@
 			</xs:sequence>
 			<xs:attribute name="id" type="xs:string" />
 			<xs:attribute name="caseNumber" type="xs:string" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="products">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of products.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element ref="tns:product" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute name="length" type="xs:int" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="product">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A product.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="code" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>A short, unique, human-readable code identifying this product.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+					<xs:annotation>
+						<xs:documentation>The formal product brand name.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 
