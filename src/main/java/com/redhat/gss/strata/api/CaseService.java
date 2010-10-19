@@ -50,8 +50,6 @@ public interface CaseService {
 
 	/**
 	 * Update a case, including nested comments and tags.  Accepts XML and JSON.
-	 * 
-	 * @return TODO wtf does this return?
 	 */
 	@PUT
 	@Path("/{caseNumber}")
