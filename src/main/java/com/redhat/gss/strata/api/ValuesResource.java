@@ -19,7 +19,7 @@ import com.redhat.gss.strata.model.Values;
 @Path("/values")
 @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
 @Mapped(namespaceMap = {@XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata")})
-public interface ValuesService {
+public interface ValuesResource {
 
 	/**
 	 * Case types
@@ -31,7 +31,7 @@ public interface ValuesService {
 	@GET
 	@Path("/case/types")
 	public Values listCaseTypes();
-	
+
 	/**
 	 * Case severity
 	 * 

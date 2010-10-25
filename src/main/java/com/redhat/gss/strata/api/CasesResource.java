@@ -34,7 +34,7 @@ import com.redhat.gss.strata.model.Comments;
  */
 @Path("/cases")
 @Produces( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.TEXT_PLAIN })
-public interface CaseService {
+public interface CasesResource {
 
 	/**
 	 * Create a case, possibly inclusive of nested comments and tags.  Accepts XML and JSON.
@@ -45,8 +45,8 @@ public interface CaseService {
 	 */
 	@POST
 	@Consumes( { MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Response createCase(
-			@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") }) Case supportCase);
+	public Response createCase(@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") }) 
+			Case supportCase);
 
 	/**
 	 * Update a case, including nested comments and tags.  Accepts XML and JSON.
@@ -69,7 +69,7 @@ public interface CaseService {
 	 */
 	@GET
 	@Mapped(namespaceMap = { @XmlNsMap(namespace = "http://www.redhat.com/gss/strata", jsonName = "strata") })
-	public Cases listCases(@QueryParam("detail") @DefaultValue("false") boolean detail);
+	public Cases listCases(@QueryParam("detail") @DefaultValue("false") boolean detail, String folderNumber);
 
 	/**
 	 * Retrieve case. The default behavior is to emit xml, although an Accept:
@@ -137,8 +137,7 @@ public interface CaseService {
 	 */
 	@GET
 	@Path("/{caseNumber}/attachments/{uuid}")
-	@Produces( { MediaType.APPLICATION_OCTET_STREAM, MediaType.TEXT_HTML,
-			MediaType.TEXT_XML, MediaType.TEXT_PLAIN })
+	@Produces( { MediaType.APPLICATION_OCTET_STREAM, MediaType.TEXT_HTML, MediaType.TEXT_XML, MediaType.TEXT_PLAIN })
 	public Response getAttachment(
 			@PathParam("caseNumber") String caseNumber,
 			@PathParam("uuid") String uuid,
@@ -226,6 +225,9 @@ public interface CaseService {
 	public Comments listComments(
 			@PathParam("caseNumber") String caseNumber,
 			@QueryParam("detail") @DefaultValue("false") boolean detail);
+	
+	public Comments searchCaseComments(String keyword);
+
 
 	/**
 	 * Retrieve case comment. The default behavior is to emit xml, although an

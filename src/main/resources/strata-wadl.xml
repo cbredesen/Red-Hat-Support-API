@@ -1,78 +1,147 @@
 <?xml version="1.0"?>
-<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+	<!--
+		TODO - attachments needs a bunch of TLC - should error responses be defined? Or should clients just *be* http 1.1
+		compliant? YES - add cookie documentation
+	-->
+
+<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:strata="https://api.access.redhat.com/rs/">
 
 	<doc title="Support Services API">Support services API documentation. All methods require SSO
 		cookie or HTTP BASIC authentication.</doc>
+	<doc title="Common Header Usage">
+		<p>The following headers are used consistently across all
+			requests:</p>
+		<ul>
+			<li>WWW-Authenticate: all resources require authentication;
+				either basic auth using this header or cookie-based
+				authentication must be used</li>
+			<li>User-Agent: a client can optionally use this field to
+				provide information to the server for either reporting or
+				nuanced responses</li>
+		</ul>
+		<p>The following additional headers are used consistently across
+			all GET requests:</p>
+		<ul>
+			<li>Accept: indicates the desired resource representation;
+				the default value when not explicitly requested text/xml</li>
+			<li>Accepted-Language: many resources are available in
+				alternative langauges. When not available, English is
+				returned as a fallback.</li>
+		</ul>
+		<p>The following additional header is used consistently across
+			all PUT and POST requests:</p>
+		<ul>
+			<li>Content-Type: indicates the content type of the message
+				body; when not present, type is text/xml is assumed.</li>
+		</ul>
+	</doc>
 
 	<resources base="https://api.access.redhat.com/rs/">
 
 		<resource path="products">
 
-			<doc>A list of all products available to the calling user.</doc>
+			<doc title="Products">A list of all products available to the calling user.</doc>
 
 			<method name="GET">
+				<request>
+					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+					<param style="header" name="User-Agent" type="xs:string" required="false" />
+					<param style="header" name="Accept" type="xs:string" required="false" />
+					<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+				</request>
 				<response status="200">
-					<representation mediaType="application/json" element="strata:products" />
 					<representation mediaType="text/xml" element="strata:products" />
 					<representation mediaType="text/plain" element="strata:products" />
 				</response>
 			</method>
 
 			<method name="HEAD">
+				<request>
+					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+					<param style="header" name="User-Agent" type="xs:string" required="false" />
+				</request>
 				<response status="200" />
 			</method>
 
 			<resource path="{product-id}">
 
-				<doc>A single product. TODO how does this differ from /product/id/versions/ver?</doc>
+				<doc title="Individual Products">A single product.</doc>
 
-				<param style="template" name="product-id" type="xsd:string" />
+				<param style="template" name="product-id" type="xs:string" />
 
 				<method name="GET">
+					<request>
+						<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+						<param style="header" name="User-Agent" type="xs:string" required="false" />
+						<param style="header" name="Accept" type="xs:string" required="false" />
+						<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+					</request>
 					<response status="200">
-						<representation mediaType="application/json" element="strata:product" />
 						<representation mediaType="text/xml" element="strata:product" />
 						<representation mediaType="text/plain" element="strata:product" />
 					</response>
 				</method>
 
 				<method name="HEAD">
+					<request>
+						<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+						<param style="header" name="User-Agent" type="xs:string" required="false" />
+					</request>
 					<response status="200" />
 				</method>
 
 				<resource path="versions">
 
-					<doc>A list of all versions of a product.</doc>
+					<doc title="Product Versions">A list of all versions of a product.</doc>
 
 					<method name="GET">
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Accept" type="xs:string" required="false" />
+							<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+						</request>
 						<response status="200">
-							<representation mediaType="application/json" element="strata:product" />
 							<representation mediaType="text/xml" element="strata:product" />
 							<representation mediaType="text/plain" element="strata:product" />
 						</response>
 					</method>
 
 					<method name="HEAD">
-					  <response status="200" />
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+						</request>
+						<response status="200" />
 					</method>
 
 					<resource path="{version-id}">
 
-						<doc>A single product of a specific version.</doc>
+						<doc title="Individual Product Versions">A single product of a specific version.</doc>
 
-						<param style="template" name="version-id" type="xsd:string" />
+						<param style="template" name="version-id" type="xs:string" />
 
 						<method name="GET">
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Accept" type="xs:string" required="false" />
+								<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+							</request>
 							<response status="200">
-								<representation mediaType="application/json" element="strata:product" />
 								<representation mediaType="text/xml" element="strata:product" />
 								<representation mediaType="text/plain" element="strata:product" />
 							</response>
 						</method>
 
 						<method name="HEAD">
-						  <response status="200" />
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+							</request>
+							<response status="200" />
 						</method>
 
 					</resource>
@@ -82,34 +151,67 @@
 
 		<resource path="cases">
 
-			<doc>A list of all support cases visible to the calling user. Available as an overview/result list
-				or as a full list of all case details.</doc>
+			<doc title="Support Cases">A list of all support cases visible to the calling user. Available as an overview/result list
+				or as a
+				full list of all case details.</doc>
 
 			<method name="GET">
 				<request>
-					<param style="query" name="detail" type="xsd:boolean" default="false" required="false" />
+					<param style="query" name="modifiedSince" type="xs:date" default="false" required="false">
+						<doc>Filters the case list to only cases modified since the date provided</doc>
+					</param>
+					<param style="query" name="group" type="xs:string" default="false" required="false">
+						<doc>Filters the case list to only cases within a case group</doc>
+					</param>
+					<param style="query" name="range" type="xs:string" required="false">
+						<doc>
+							<p>
+								Limit the case listing to the specified
+								range. Should be in the format range=X-Y, where
+								X and Y are integers starting at 1 and
+								continuing to the upper bound of cases When the
+								upper bound is higher than the total number of
+								cases, the server will return up to the last
+								case.
+							</p>
+							<p>
+								Case listing in order of last modification date:
+								accordingly, there is no guarantee that multiple
+								or repeated calls return the same ordering since
+								cases may be modified in between requests.
+					</p>
+						</doc>
+					</param>
+					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+					<param style="header" name="User-Agent" type="xs:string" required="false" />
+					<param style="header" name="Accept" type="xs:string" required="false" />
+					<param style="header" name="Accepted-Language" type="xs:string" required="false" />
 				</request>
 				<response status="200">
-					<representation mediaType="application/json" element="strata:cases" />
 					<representation mediaType="text/xml" element="strata:cases" />
 					<representation mediaType="text/plain" element="strata:cases" />
 				</response>
 			</method>
 
 			<method name="HEAD">
-			  <response status="200" />
+				<request>
+					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+					<param style="header" name="User-Agent" type="xs:string" required="false" />
+				</request>
+				<response status="200" />
 			</method>
 
 			<method name="POST">
 				<doc>Create a new case. One or more case elements should be included. URI of the
-					new case is returned in the Location header of successful operations.</doc>
+					new case is returned in the Location
+					header of successful operations.</doc>
 				<request>
-					<representation mediaType="application/json" element="strata:case" />
-					<representation mediaType="text/xml" element="strata:case" />
+					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+					<param style="header" name="User-Agent" type="xs:string" required="false" />
+					<param style="header" name="Content-Type" type="xs:string" required="false" />
 				</request>
 				<response status="201">
 					<param style="header" name="Location" />
-					<representation mediaType="application/json" />
 					<representation mediaType="text/xml" />
 					<representation mediaType="text/plain" />
 				</response>
@@ -117,29 +219,45 @@
 
 			<resource path="{case-id}">
 
-				<doc>A support case.</doc>
+				<doc title="Individual Support Cases">A support case.</doc>
 
-				<param style="template" name="case-id" type="xsd:string" />
+				<param style="template" name="case-id" type="xs:string" />
+
 
 				<method name="GET">
+					<request>
+						<param style="query" name="details" type="xs:boolean" default="false" required="false">
+							<doc>When details is set to true, associated case
+								comments and attachment metadata is also retrieved</doc>
+						</param>
+						<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+						<param style="header" name="User-Agent" type="xs:string" required="false" />
+						<param style="header" name="Accept" type="xs:string" required="false" />
+						<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+					</request>
+
 					<response status="200">
-						<representation mediaType="application/json" element="strata:case" />
 						<representation mediaType="text/xml" element="strata:case" />
 						<representation mediaType="text/plain" element="strata:case" />
 					</response>
 				</method>
 
 				<method name="HEAD">
+					<request>
+						<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+						<param style="header" name="User-Agent" type="xs:string" required="false" />
+					</request>
 					<response status="200" />
 				</method>
 
 				<method name="PUT">
 					<request>
-						<representation mediaType="application/json" element="strata:case" />
+						<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+						<param style="header" name="User-Agent" type="xs:string" required="false" />
+						<param style="header" name="Content-Type" type="xs:string" required="false" />
 						<representation mediaType="text/xml" element="strata:case" />
 					</request>
 					<response status="204">
-						<representation mediaType="application/json" />
 						<representation mediaType="text/xml" />
 						<representation mediaType="text/plain" />
 					</response>
@@ -147,33 +265,40 @@
 
 				<resource path="comments">
 
-					<doc>Comments associated with a specific support case.</doc>
+					<doc title="Support Case Comments">Comments associated with a specific support case.</doc>
 
 					<method name="GET">
-						<doc>Get all comments associated with a support case.</doc>
 						<request>
-							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Accept" type="xs:string" required="false" />
+							<param style="header" name="Accepted-Language" type="xs:string" required="false" />
 						</request>
+						<doc>Get all comments associated with a support case.</doc>
 						<response status="200">
-							<representation mediaType="application/json" element="strata:comments" />
 							<representation mediaType="text/xml" element="strata:comments" />
 							<representation mediaType="text/plain" element="strata:comments" />
 						</response>
 					</method>
 
 					<method name="HEAD">
-					  <response status="200" />
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+						</request>
+						<response status="200" />
 					</method>
 
 					<method name="POST">
 						<doc>Add a comment to a specific support case. URI of new comment provided in the Location header.</doc>
 						<request>
-							<representation mediaType="application/json" element="strata:comment" />
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Content-Type" type="xs:string" required="false" />
 							<representation mediaType="text/xml" element="strata:comment" />
 						</request>
 						<response status="201">
 							<param style="header" name="Location" />
-							<representation mediaType="application/json" />
 							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
@@ -181,31 +306,42 @@
 
 					<resource path="{comment-id}">
 
-						<doc>A case comment. This is not expected to be used frequently but it is provided
-							as a resource URI to PUT comment updates to.</doc>
+						<doc title="Individual Support Case Comments">A case comment. This is not expected to be used frequently but it is provided
+							as a resource URI to
+							put comment updates to.</doc>
 
-						<param name="comment-id" style="template" type="xsd:string" />
+						<param name="comment-id" style="template" type="xs:string" />
 
 						<method name="GET">
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Accept" type="xs:string" required="false" />
+								<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+							</request>
 							<response status="200">
-								<representation mediaType="application/json" element="strata:comment" />
 								<representation mediaType="text/xml" element="strata:comment" />
 								<representation mediaType="text/plain" element="strata:comment" />
 							</response>
 						</method>
 
 						<method name="HEAD">
-						  <response status="200" />
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+							</request>
+							<response status="200" />
 						</method>
 
 						<method name="PUT">
 							<doc>Update an existing case comment.</doc>
 							<request>
-								<representation mediaType="application/json" element="strata:comment" />
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Content-Type" type="xs:string" required="false" />
 								<representation mediaType="text/xml" element="strata:comment" />
 							</request>
 							<response status="204">
-								<representation mediaType="application/json" />
 								<representation mediaType="text/xml" />
 								<representation mediaType="text/plain" />
 							</response>
@@ -216,28 +352,39 @@
 
 				<resource path="attachments">
 
-					<doc>A list of attachments for a specific case.</doc>
+					<doc title="Support Case Attachments">A list of attachments for a specific case.</doc>
 
 					<method name="GET">
 						<request>
-							<param name="detail" style="query" type="xs:boolean" default="false" required="false" />
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Accept" type="xs:string" required="false" />
+							<param style="header" name="Accepted-Language" type="xs:string" required="false" />
 						</request>
 						<response status="200">
-							<representation mediaType="application/json" />
 							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
 					</method>
 
 					<method name="HEAD">
-					  <response status="200" />
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+						</request>
+						<response status="200" />
 					</method>
 
 					<method name="POST">
 						<doc>Create new attachment information on a support case.</doc>
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Content-Type" type="xs:string" required="false" />
+							<representation mediaType="text/xml" element="strata:case" />
+						</request>
 						<response status="201">
 							<param style="header" name="Location" />
-							<representation mediaType="application/json" />
 							<representation mediaType="text/xml" />
 							<representation mediaType="text/plain" />
 						</response>
@@ -245,14 +392,18 @@
 
 					<resource path="{attachment-id}">
 
-						<doc>Meta-data about a specific attachment. The URI of the actual attached binary file
-							is available in this element.</doc>
+						<doc title="Individual Support Case Attachments">Meta-data about a specific attachment. The URI of the actual attached binary file
+							is available in
+							this element.</doc>
 
-						<param name="attachment-id" style="template" type="xsd:string" />
+						<param name="attachment-id" style="template" type="xs:string" />
 
 						<method name="GET">
 							<request>
-								<param name="range" style="header" type="xs:string" required="true" />
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Accept" type="xs:string" required="false" />
+								<param style="header" name="Accepted-Language" type="xs:string" required="false" />
 							</request>
 							<response status="200">
 								<representation mediaType="application/octet-stream" />
@@ -260,15 +411,21 @@
 						</method>
 
 						<method name="HEAD">
-						  <response status="200" />
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+							</request>
+							<response status="200" />
 						</method>
 
 						<method name="PUT">
 							<request>
-								<param style="header" name="Content-Type" type="xs:string" required="true" />
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Content-Type" type="xs:string" required="false" />
+								<representation mediaType="text/xml" element="strata:case" />
 							</request>
-							<response status="200">
-								<representation mediaType="application/json" />
+							<response status="204">
 								<representation mediaType="text/xml" />
 								<representation mediaType="text/plain" />
 							</response>
@@ -282,52 +439,89 @@
 
 		<resource path="accounts">
 
-			<doc>A list of customer accounts, not currently implemented</doc>
+			<doc title="Accounts">A list of customer accounts, not currently implemented</doc>
 
 			<resource path="{account-id}">
 
-				<doc>Information about a customer account, not currently implemented</doc>
+				<doc title="Individual Accounts">Information about a customer account, not currently implemented</doc>
 
 				<resource path="case-groups">
 
-					<doc>A list of case groups/folders for an account</doc>
+					<doc title="Account Case Groups">A list of case groups/folders for an account</doc>
 
 					<method name="GET">
-						<representation mediaType="application/json" element="strata:accounts" />
-						<representation mediaType="text/xml" element="strata:accounts" />
-						<representation mediaType="text/plain" element="strata:accounts" />
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Accept" type="xs:string" required="false" />
+							<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+						</request>
+						<response status="200">
+							<representation mediaType="text/xml" element="strata:accounts" />
+							<representation mediaType="text/plain" element="strata:accounts" />
+						</response>
 					</method>
 
 					<method name="HEAD">
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+						</request>
 						<response status="200" />
 					</method>
 
 					<method name="POST">
-						<representation mediaType="application/json" element="strata:accounts" />
-						<representation mediaType="text/xml" element="strata:accounts" />
-						<representation mediaType="text/plain" element="strata:accounts" />
+						<request>
+							<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+							<param style="header" name="User-Agent" type="xs:string" required="false" />
+							<param style="header" name="Content-Type" type="xs:string" required="false" />
+							<representation mediaType="text/xml" element="strata:case" />
+						</request>
+						<response status="201">
+							<param style="header" name="Location" />
+							<representation mediaType="text/xml" element="strata:accounts" />
+							<representation mediaType="text/plain" element="strata:accounts" />
+						</response>
 					</method>
 
 					<resource path="{case-group-id}">
 
-						<param style="template" name="case-group-id" type="xsd:string" />
+						<param style="template" name="case-group-id" type="xs:string" />
 
-						<doc>Information about a customer case group</doc>
+						<doc title="Individual Account Case Groups">Information about a customer case group</doc>
 
 						<method name="GET">
-							<representation mediaType="application/json" element="strata:accounts" />
-							<representation mediaType="text/xml" element="strata:accounts" />
-							<representation mediaType="text/plain" element="strata:accounts" />
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Accept" type="xs:string" required="false" />
+								<param style="header" name="Accepted-Language" type="xs:string" required="false" />
+							</request>
+							<response status="200">
+								<representation mediaType="text/xml" element="strata:accounts" />
+								<representation mediaType="text/plain" element="strata:accounts" />
+							</response>
 						</method>
 
 						<method name="HEAD">
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+							</request>
 							<response status="200" />
 						</method>
 
 						<method name="PUT">
-							<representation mediaType="application/json" element="strata:accounts" />
-							<representation mediaType="text/xml" element="strata:accounts" />
-							<representation mediaType="text/plain" element="strata:accounts" />
+							<request>
+								<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
+								<param style="header" name="User-Agent" type="xs:string" required="false" />
+								<param style="header" name="Content-Type" type="xs:string" required="false" />
+								<representation mediaType="text/xml" element="strata:case" />
+							</request>
+							<response status="204">
+								<representation mediaType="text/xml" element="strata:accounts" />
+								<representation mediaType="text/plain" element="strata:accounts" />
+							</response>
 						</method>
 
 					</resource>

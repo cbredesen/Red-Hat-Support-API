@@ -1,10 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.redhat.com/gss/strata"
-	xmlns:tns="http://www.redhat.com/gss/strata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.redhat.com/gss/strata"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0">
 
 	<xs:annotation>
 		<xs:documentation>Red Hat Support Services API</xs:documentation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType xmlType="xs:dateTime" name="java.util.Calendar" 
+					parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
+					printMethod="javax.xml.bind.DatatypeConverter.printDateTime" />
+			</jaxb:globalBindings>
+		</xs:appinfo>
 	</xs:annotation>
+
+	<xs:complexType name="trackedEntity">
+		<xs:sequence>
+			<xs:element name="created-by" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="createdDate" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+			<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="lastModifiedDate" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="attachments">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of attachments.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element ref="tns:attachment" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="attachment">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A file attachment and related meta data.</xs:documentation>
+			</xs:annotation>
+			<xs:complexContent>
+				<xs:extension base="tns:trackedEntity">
+					<xs:sequence>
+						<xs:element name="caseId" type="xs:string" />
+						<xs:element name="uuid" type="xs:string" />
+						<xs:element name="uri" type="xs:anyURI" />
+						<xs:element name="fileDate" type="xs:dateTime" />
+						<xs:element name="fileName" type="xs:string" />
+						<xs:element name="description" type="xs:string" />
+						<xs:element name="mimeType" type="xs:string" />
+						<xs:element name="length" type="xs:long" />
+						<xs:element name="active" type="xs:boolean" />
+						<xs:element name="deprecated" type="xs:boolean" />
+					</xs:sequence>
+					<xs:attribute name="caseNumber" type="xs:string" use="required" />
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="groups">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of groups.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element ref="tns:group" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="group">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A group that may contain zero or more cases.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="id" type="xs:string" />
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="uri" type="xs:anyURI" />
+			</xs:sequence>
+			<xs:attribute name="number" type="xs:string" use="optional" />
+		</xs:complexType>
+	</xs:element>
 
 	<xs:element name="cases">
 		<xs:complexType>
@@ -18,7 +97,6 @@
 			<xs:sequence>
 				<xs:element ref="tns:case" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
 	</xs:element>
 
@@ -27,85 +105,91 @@
 			<xs:annotation>
 				<xs:documentation>A support case as viewed by an internal customer.</xs:documentation>
 			</xs:annotation>
-			<xs:sequence>
-				<xs:element name="uri" type="xs:anyURI" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>RESTful URI for this case resource.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="summary" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Title or short summary.  This field is required by the model
-						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Description of the problem or question.  This field is required by the model
-						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Case status.  Valid values are available from 
-						the values service.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="product" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Product this case relates to.  Valid products 
-						are available from the products resource.  This field is required by the model
-						but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="component" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Component this case relates to (optional). Valid
-						components for a given product are available from the values 
-						service.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="version" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Version of the product this case relates to.
-						Valid versions for a given product are available from the values
-						service.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Type of case, i.e. question, problem, etc.
-						Valid types are available from the values service.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="accountNumber" type="xs:string" minOccurs="0" maxOccurs="1">
-					<xs:annotation>
-						<xs:documentation>Account number this case belongs to.  This field is required 
-						by the model but the schema allows it to be omitted so that field-level updates 
-						are possible.</xs:documentation>
-					</xs:annotation>
-				</xs:element>
-				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
-				<xs:element name="createdDate" type="xs:dateTime" minOccurs="0" />
-				<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" />
-				<xs:element name="lastModifiedDate" type="xs:dateTime" minOccurs="0" />
-				<xs:element name="reference" type="xs:string" minOccurs="0" />
-				<xs:element name="notes" type="xs:string" minOccurs="0" />
-				<xs:element name="isEscalated" type="xs:boolean" minOccurs="0" />
-				<xs:element name="contactName" type="xs:string" minOccurs="0" />
-				<xs:element name="origin" type="xs:string" minOccurs="0" />
-				<xs:element name="owner" type="xs:string" minOccurs="0" />
-				<xs:element name="internalPriority" type="xs:string" minOccurs="0" />
-				<xs:element name="internalStatus" type="xs:string" minOccurs="0" />
-				<xs:element name="suppliedName" type="xs:string" minOccurs="0" />
-				<xs:element name="suppliedPhone" type="xs:string" minOccurs="0" />
-				<xs:element name="suppliedEmail" type="xs:string" minOccurs="0" />
-				<xs:element name="severity" type="xs:string" minOccurs="0" />
-				<xs:element ref="tns:comments" minOccurs="0" />
-			</xs:sequence>
-			<xs:attribute name="caseNumber" type="xs:string" use="optional" />
-			<xs:attribute name="isClosed" type="xs:boolean" use="optional" />
-			<xs:attribute name="customerReferenceNumber" type="xs:string" use="optional" />
+			<xs:complexContent>
+				<xs:extension base="tns:trackedEntity">
+					<xs:sequence>
+						<xs:element name="id" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Case identifier assigned by backing system.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="uri" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>RESTful URI for this case resource.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="summary" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Title or short summary.  This field is required by the model
+								but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Description of the problem or question.  This field is required by the model
+								but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="status" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Case status.  Valid values are available from 
+								the values service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="product" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Product this case relates to.  Valid products 
+								are available from the products resource.  This field is required by the model
+								but the schema allows it to be omitted so that field-level updates are possible.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="component" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Component this case relates to (optional). Valid
+								components for a given product are available from the values 
+								service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="version" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Version of the product this case relates to.
+								Valid versions for a given product are available from the values
+								service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Type of case, i.e. question, problem, etc.
+								Valid types are available from the values service.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="accountNumber" type="xs:string" minOccurs="0" maxOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Account number this case belongs to.  This field is required 
+								by the model but the schema allows it to be omitted so that field-level updates 
+								are possible.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="reference" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="notes" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="escalated" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+						<xs:element name="contactName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="origin" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="owner" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="internalPriority" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="internalStatus" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="suppliedName" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="suppliedPhone" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="suppliedEmail" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="severity" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element name="folderNumber" type="xs:string" minOccurs="0" maxOccurs="1" />
+						<xs:element ref="tns:comments" minOccurs="0" />
+					</xs:sequence>
+					<xs:attribute name="caseNumber" type="xs:string" use="optional" />
+					<xs:attribute name="closed" type="xs:boolean" use="optional" />
+					<xs:attribute name="customerReferenceNumber" type="xs:string" use="optional" />
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 
@@ -117,7 +201,6 @@
 			<xs:sequence>
 				<xs:element ref="tns:comment" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
 	</xs:element>
 
@@ -126,19 +209,19 @@
 			<xs:annotation>
 				<xs:documentation>A support case comment and associated metadata.</xs:documentation>
 			</xs:annotation>
-			<xs:sequence>
-				<xs:element name="date" type="xs:dateTime" />
-				<xs:element name="who" type="xs:string" minOccurs="0" />
-				<xs:element name="text" type="xs:string" />
-				<xs:element name="title" type="xs:string" minOccurs="0" />
-				<xs:element name="lastModified" type="xs:date" minOccurs="0" />
-				<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" />
-				<xs:element name="createdDate" type="xs:date" minOccurs="0" />
-				<xs:element name="createdBy" type="xs:string" minOccurs="0" />
-				<xs:element name="uri" type="xs:anyURI" minOccurs="0" />
-			</xs:sequence>
-			<xs:attribute name="id" type="xs:string" />
-			<xs:attribute name="caseNumber" type="xs:string" use="required" />
+			<xs:complexContent>
+				<xs:extension base="tns:trackedEntity">
+					<xs:sequence>
+						<xs:element name="date" type="xs:dateTime" />
+						<xs:element name="who" type="xs:string" minOccurs="0" />
+						<xs:element name="text" type="xs:string" />
+						<xs:element name="title" type="xs:string" minOccurs="0" />
+						<xs:element name="uri" type="xs:anyURI" minOccurs="0" />
+					</xs:sequence>
+					<xs:attribute name="id" type="xs:string" />
+					<xs:attribute name="caseNumber" type="xs:string" use="required" />
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 
@@ -150,7 +233,6 @@
 			<xs:sequence>
 				<xs:element ref="tns:product" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
 	</xs:element>
 
@@ -191,7 +273,6 @@
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="length" type="xs:int" use="required" />
 		</xs:complexType>
 	</xs:element>
 

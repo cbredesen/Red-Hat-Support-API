@@ -3,3 +3,4 @@ target/
 .classpath
 .project
 src/META-INF/
+src/main/java/META-INF/
