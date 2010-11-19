@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.redhat.com/gss/strata"
+<xs:schema targetNamespace="http://www.redhat.com/gss/strata" elementFormDefault="qualified" version="1.1" 
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:tns="http://www.redhat.com/gss/strata"
-	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0">
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0"
+	xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc">
 
 	<xs:annotation>
 		<xs:documentation>Red Hat Support Services API</xs:documentation>
 		<xs:appinfo>
 			<jaxb:globalBindings>
+				<xjc:serializable uid="11"/>
 				<jaxb:javaType xmlType="xs:dateTime" name="java.util.Calendar" 
 					parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
 					printMethod="javax.xml.bind.DatatypeConverter.printDateTime" />
@@ -15,9 +18,13 @@
 		</xs:appinfo>
 	</xs:annotation>
 
-	<xs:complexType name="trackedEntity">
+	<xs:complexType name="trackedEntity" abstract="true">
+		<xs:annotation>
+			<xs:documentation>A common base type for any type that needs the common created/updated
+			information.</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="created-by" type="xs:string" minOccurs="0" maxOccurs="1" />
+			<xs:element name="createdBy" type="xs:string" minOccurs="0" maxOccurs="1" />
 			<xs:element name="createdDate" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
 			<xs:element name="lastModifiedBy" type="xs:string" minOccurs="0" maxOccurs="1" />
 			<xs:element name="lastModifiedDate" type="xs:dateTime" minOccurs="0" maxOccurs="1" />
@@ -45,6 +52,7 @@
 					<xs:sequence>
 						<xs:element name="caseId" type="xs:string" />
 						<xs:element name="uuid" type="xs:string" />
+						<xs:element name="etag" type="xs:string" />
 						<xs:element name="uri" type="xs:anyURI" />
 						<xs:element name="fileDate" type="xs:dateTime" />
 						<xs:element name="fileName" type="xs:string" />
@@ -103,7 +111,7 @@
 	<xs:element name="case">
 		<xs:complexType>
 			<xs:annotation>
-				<xs:documentation>A support case as viewed by an internal customer.</xs:documentation>
+				<xs:documentation>A support case.</xs:documentation>
 			</xs:annotation>
 			<xs:complexContent>
 				<xs:extension base="tns:trackedEntity">
@@ -153,8 +161,8 @@
 						<xs:element name="version" type="xs:string" minOccurs="0" maxOccurs="1">
 							<xs:annotation>
 								<xs:documentation>Version of the product this case relates to.
-								Valid versions for a given product are available from the values
-								service.</xs:documentation>
+								Valid versions for a given product are available from the products
+								resource.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="type" type="xs:string" minOccurs="0" maxOccurs="1">
@@ -252,6 +260,17 @@
 						<xs:documentation>The formal product brand name.</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="versions">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:documentation>A list of product versions.</xs:documentation>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="version" minOccurs="0" maxOccurs="unbounded" type="xs:string" />
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

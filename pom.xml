@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.redhat.gss</groupId>
 	<artifactId>support-services-api</artifactId>
-	<version>1.0.0.0-SNAPSHOT</version>
+	<version>1.1.0.0-SNAPSHOT</version>
 	<name>Support Services API</name>
 	<packaging>jar</packaging>
 
@@ -33,6 +33,7 @@
 				</executions>
 				<configuration>
 					<generatePackage>com.redhat.gss.strata.model</generatePackage>
+					<extension>true</extension>
 				</configuration>
 			</plugin>
 			<plugin>

@@ -1,4 +1,4 @@
-package com.redhat.gss.strata.api;
+package com.redhat.gss.strata.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -9,7 +9,8 @@ import javax.ws.rs.core.MediaType;
 import org.jboss.resteasy.annotations.providers.jaxb.json.Mapped;
 import org.jboss.resteasy.annotations.providers.jaxb.json.XmlNsMap;
 
-import com.redhat.gss.strata.model.Values;
+import com.redhat.gss.strata.model.Products;
+import com.redhat.gss.strata.model.Versions;
 
 /**
  * Provides access to product names, versions and other related information about products. 
@@ -22,25 +23,20 @@ import com.redhat.gss.strata.model.Values;
 public interface ProductsResource {
 
 	/**
-	 * List products
-	 *
-	 * <p><b>XML Example</b><pre><code>
-	 * curl -v -u rhn-user:pwd -X GET -H 'Accept: application/xml' http://localhost:8080/Strata/values/products
-	 * </code></pre></p>
+	 * List products available to the calling user.
 	 */
 	@GET
-	public Values listProducts();
-	
+	public Products listProducts();
+
 	/**
-	 * List product versions
-	 *
-	 * <p><b>XML Example</b><pre><code>
-	 * curl -v -u rhn-user:pwd -X GET -H 'Accept: application/xml' http://localhost:8080/Strata/values/products/versions/JBoss%20AS
-	 * </code></pre></p>
+	 * List all versions for <code>product</code>.
+	 * 
+	 * @param product Product name (TODO: use code here).
+	 * 
+	 * @return All product versions.
 	 */
 	@GET
-	@Path("/versions/{product}")
-	public Values listProductVersions(@PathParam("product") String product);
-	
+	@Path("{product}/versions")
+	public Versions listProductVersions(@PathParam("product") String product);
 
 }

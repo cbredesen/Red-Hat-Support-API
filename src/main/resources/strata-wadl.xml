@@ -1,12 +1,17 @@
 <?xml version="1.0"?>
 
-	<!--
-		TODO - attachments needs a bunch of TLC - should error responses be defined? Or should clients just *be* http 1.1
-		compliant? YES - add cookie documentation
-	-->
+<!--
+TODO
+ - attachments needs a bunch of TLC
+ - should error responses be defined? Or should clients just *be* http 1.1 compliant? YES
+ - add cookie documentation
+ - need to document, and increase, file limit size
+ - range needs more thought/discussion
+ - should every element be implicitly queryable from parent/<element>? 
+ - camel-case query parameters?
+-->
 
-<application xmlns="http://wadl.dev.java.net/2009/02" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-	xmlns:strata="https://api.access.redhat.com/rs/">
+<application xmlns="http://wadl.dev.java.net/2009/02"  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:strata="https://api.access.redhat.com/rs/">
 
 	<doc title="Support Services API">Support services API documentation. All methods require SSO
 		cookie or HTTP BASIC authentication.</doc>
@@ -104,8 +109,7 @@
 							<param style="header" name="Accepted-Language" type="xs:string" required="false" />
 						</request>
 						<response status="200">
-							<representation mediaType="text/xml" element="strata:product" />
-							<representation mediaType="text/plain" element="strata:product" />
+							<representation mediaType="text/xml" element="strata:versions" />
 						</response>
 					</method>
 
@@ -157,12 +161,19 @@
 
 			<method name="GET">
 				<request>
-					<param style="query" name="modifiedSince" type="xs:date" default="false" required="false">
-						<doc>Filters the case list to only cases modified since the date provided</doc>
+					<param style="query" name="startDate" type="xs:date" default="false" required="false">
+						<doc>Filters the case list to only cases
+						modified since the date provided. Can be used
+						in combination with endDate is provide a
+						specific range</doc>
+					</param>
+					<param style="query" name="endDate" type="xs:date" default="false" required="false">
+						<doc>Filters the case list to only cases modified before the date provided</doc>
 					</param>
 					<param style="query" name="group" type="xs:string" default="false" required="false">
 						<doc>Filters the case list to only cases within a case group</doc>
 					</param>
+<!--
 					<param style="query" name="range" type="xs:string" required="false">
 						<doc>
 							<p>
@@ -179,9 +190,10 @@
 								accordingly, there is no guarantee that multiple
 								or repeated calls return the same ordering since
 								cases may be modified in between requests.
-					</p>
+							</p>
 						</doc>
 					</param>
+-->
 					<param style="header" name="WWW-Authenticate" type="xs:string" required="false" />
 					<param style="header" name="User-Agent" type="xs:string" required="false" />
 					<param style="header" name="Accept" type="xs:string" required="false" />
